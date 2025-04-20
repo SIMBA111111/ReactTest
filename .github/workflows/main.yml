@@ -23,6 +23,10 @@ jobs:
           chmod 600 ~/.ssh/private.key
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
         shell: bash
+        
+      - name: Add host to known_hosts
+        run: |
+          ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
 
       - name: Deploy
         run: |
