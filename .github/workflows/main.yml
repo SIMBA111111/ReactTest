@@ -28,6 +28,11 @@ jobs:
       - name: Add the host to known_hosts
         run: ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
 
+      - name: Debug SSH key
+        run: |
+          cat ~/.ssh/private.key
+          ssh-keygen -y -f ~/.ssh/private.key
+      
       - name: Deploy
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/private.key root@89.169.1.160 "echo 'Deployment successful!'"
