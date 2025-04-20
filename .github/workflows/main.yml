@@ -5,7 +5,7 @@ jobs:
   Clon-repo:
     runs-on: ubuntu-22.04
     steps: 
-      - run: echo "Start cloning repo.."
+      - run: echo "Start cloning repo..."
       
       - name: Checkout code
         uses: actions/checkout@v2 
@@ -32,4 +32,4 @@ jobs:
         run: cat ~/.ssh/private.key
       
       - name: Deploy
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/private.key root@89.169.1.160
+        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/private.key root@89.169.1.160 "echo 'Deployment successful!'"
