@@ -29,3 +29,17 @@ jobs:
 
       - name: Deploy to server
         run: ssh -o StrictHostKeyChecking=no root@89.169.1.160
+
+      - name: Update
+        run: |
+          cd ReactTest
+          npm i
+          npm run build
+          if [ -d "../var/www/dist" ]; then
+            echo "Папка dist существует, удаляю старые файлы..."
+            rm -rf ../var/www/dist/*
+          else
+            echo "Папка dist не существует, создаю..."
+            mkdir -p "../var/www/dist"
+          fi
+          cp -r dist/* ../var/www/dist
