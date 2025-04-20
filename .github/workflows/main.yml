@@ -28,12 +28,6 @@ jobs:
       - name: Add the host to known_hosts
         run: ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
 
-      - name: Start SSH agent
-        run: eval $(ssh-agent -s)
-
-      - name: Add SSH key to the agent
-        run: ssh-add ~/.ssh/private.key
-
       - name: Deploy
         run: |
-          ssh -v -i ~/.ssh/private.key root@89.169.1.160
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private.key root@89.169.1.160 "echo 'Deployment successful!'"
