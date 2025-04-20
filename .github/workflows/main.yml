@@ -19,10 +19,9 @@ jobs:
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ../private.key
-          sudo chmod 600 ../private.key
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
+          sudo chmod 600 ~/.ssh/private.key
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          ssh -i $SSH_KEY_PATH root@89.169.1.160
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
@@ -32,6 +31,5 @@ jobs:
       - name: Check SSH key
         run: cat ../private.key
       
-      # - name: Deploy
-        # run: ssh -i $SSH_KEY_PATH root@89.169.1.160
-    
+      - name: Deploy
+        run: ssh -i ~/.ssh/private.key root@89.169.1.160
