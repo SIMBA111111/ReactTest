@@ -13,6 +13,8 @@ jobs:
     needs: Clon-repo
     runs-on: ubuntu-22.04
     steps: 
+      - run: cd /
+      - run: cd ReactTest/
       - run: pwd
       - name: Check current directory contents
         run: ls -la
