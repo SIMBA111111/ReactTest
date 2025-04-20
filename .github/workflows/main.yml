@@ -30,7 +30,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no root@89.169.1.160 << 'EOF'
-            cd ReactTest || { echo "Папка ReactTest не найдена"; exit 1; }
+            cd ReactTest/ || { echo "Папка ReactTest не найдена"; exit 1; }
             npm i
             npm run build
             if [ -d "../var/www/dist" ]; then
