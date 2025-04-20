@@ -15,17 +15,13 @@ jobs:
         
       - name: Build
         run: npm run build
-        
-      - run: echo "Successfully cloned repo"
-
-      - name: Remove directory if it exists
-        run: |
-          if [ -d "../var/www/dist" ]; then
-            echo "Removing ../var/www/dist directory..."
-            rm -r ../var/www/dist
-          else
-            echo "../var/www/dist directory does not exist, skipping removal."
-          fi
-      
-      - name: Copy build files
-        run: cp -r dist ../var/www
+                
+      - name: Deploy to Server via SSH
+        uses: root/scp-action@master
+        with:
+          host: ${{ secrets.SSH_SERVER_IP }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          source: "dist"
+          target: "./var/www"
