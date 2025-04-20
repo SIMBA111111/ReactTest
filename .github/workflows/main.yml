@@ -18,23 +18,19 @@ jobs:
                 
       - name: Create SSH key
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private.key
-          chmod 600 ~/.ssh/private.key
-
-      - name: Check SSH key permissions
-        run: ls -l ~/.ssh/private.key
-
-      - name: Add the host to known_hosts
-        run: ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
-
-      - name: Debug SSH key
-        run: |
-          echo "First 10 lines of the SSH key:"
-          echo "start: ${{ secrets.SSH_PRIVATE_KEY }} :end"
-          echo "Attempting to load the key:"
-          ssh-keygen -y -f ~/.ssh/private.key
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          sudo chmod 600 ../private.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+      
+      - name: Check SSH key
+        run: cat ~/.ssh/private.key
       
       - name: Deploy
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private.key root@89.169.1.160 "echo 'Deployment successful!'"
+        run: ssh -i $SSH_KEY_PATH root@89.169.1.160
+    
