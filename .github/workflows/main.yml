@@ -13,6 +13,7 @@ jobs:
     needs: Clon-repo
     runs-on: ubuntu-22.04
     steps: 
+      - run: pwd
       - run: npm i
   Build:
     needs: Dependency-install
