@@ -30,7 +30,9 @@ jobs:
 
       - name: Debug SSH key
         run: |
-          cat ~/.ssh/private.key
+          echo "First 10 lines of the SSH key:"
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | head -n 10
+          echo "Attempting to load the key:"
           ssh-keygen -y -f ~/.ssh/private.key
       
       - name: Deploy
