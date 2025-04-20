@@ -5,35 +5,27 @@ jobs:
   Clon-repo:
     runs-on: ubuntu-22.04
     steps: 
-      - run: echo "Start clonning repo..."
+      - run: echo "Start cloning repo..."
+      
       - name: Checkout code
         uses: actions/checkout@v2 
+        
       - name: Install dependencies
         run: npm install
+        
       - name: Build
         run: npm run build
-      - run: echo "Succesful cloned repo"
-      - run: rm -r ../var/www/dist 
-      - run: cp -r /dist ../var/www
+        
+      - run: echo "Successfully cloned repo"
 
-  # Dependency-install:
-  #   needs: Clon-repo
-  #   runs-on: ubuntu-22.04
-  #   steps: 
-  #     - run: cd /
-  #     - run: cd ReactTest/
-  #     - run: pwd
-  #     - name: Check current directory contents
-  #       run: ls -la
-  #     - run: npm i
-  # Build:
-  #   needs: Dependency-install
-  #   runs-on: ubuntu-22.04
-  #   steps: 
-  #     - run: npm build
-  # Cp-dist:
-  #   needs: Build
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - run: rm -r ../var/www/dist 
-  #     - run: cp -r /dist ../var/www
+      - name: Remove directory if it exists
+        run: |
+          if [ -d "../var/www/dist" ]; then
+            echo "Removing ../var/www/dist directory..."
+            rm -r ../var/www/dist
+          else
+            echo "../var/www/dist directory does not exist, skipping removal."
+          fi
+      
+      - name: Copy build files
+        run: cp -r dist ../var/www
