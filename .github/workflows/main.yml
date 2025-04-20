@@ -32,7 +32,7 @@ jobs:
 
       - name: Update
         run: |
-          cd ReactTest
+          cd ReactTest/
           npm i
           npm run build
           if [ -d "../var/www/dist" ]; then
