@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-22.04
     environment: test
     steps: 
-      - run: echo "Start cloning repo...."
+      - run: echo "Start cloning repo..."
       
       - name: Checkout code
         uses: actions/checkout@v2 
