@@ -5,7 +5,7 @@ jobs:
   Clon-repo:
     runs-on: ubuntu-22.04
     steps: 
-      - run: echo "Start cloning repo..."
+      - run: echo "Start cloning repo.."
       
       - name: Checkout code
         uses: actions/checkout@v2 
@@ -22,9 +22,18 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private.key
           chmod 600 ~/.ssh/private.key
 
+      - name: Check SSH key permissions
+        run: ls -l ~/.ssh/private.key
+
       - name: Add the host to known_hosts
         run: ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
 
+      - name: Start SSH agent
+        run: eval $(ssh-agent -s)
+
+      - name: Add SSH key to the agent
+        run: ssh-add ~/.ssh/private.key
+
       - name: Deploy
         run: |
-          ssh -i ~/.ssh/private.key root@89.169.1.160
+          ssh -v -i ~/.ssh/private.key root@89.169.1.160
