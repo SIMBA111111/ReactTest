@@ -16,19 +16,15 @@ jobs:
       - name: Build
         run: npm run build
                 
-      # - name: Create SSH key
-      #   run: |
-      #     mkdir -p ~/.ssh/
-      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private.key
-      #     chmod 600 ~/.ssh/private.key
-      #     echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-      #   shell: bash
-        
-      # - name: Add host to known_hosts
-      #   run: |
-      #     ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private.key
+          chmod 600 ~/.ssh/private.key
+
+      - name: Add the host to known_hosts
+        run: ssh-keyscan -H 89.169.1.160 >> ~/.ssh/known_hosts
 
       - name: Deploy
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} root@89.169.1.160
-          pwd
+          ssh -i ~/.ssh/private.key root@89.169.1.160
