@@ -16,20 +16,11 @@ jobs:
       # - name: Build
         # run: npm run build
                 
-      - name: Create SSH key
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to server
         run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
-          sudo chmod 600 ~/.ssh/private.key
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        shell: bash
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
-          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
-      
-      - name: Check SSH key
-        run: cat ~/.ssh/private.key
-      
-      - name: Deploy
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/private.key root@89.169.1.160 "echo 'Deployment successful!'"
+                    ssh -o StrictHostKeyChecking=no root@89.169.1.160
