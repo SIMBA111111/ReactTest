@@ -11,8 +11,11 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build
-        run: npm build
+        run: npm run build
       - run: echo "Succesful cloned repo"
+      - run: rm -r ../var/www/dist 
+      - run: cp -r /dist ../var/www
+
   # Dependency-install:
   #   needs: Clon-repo
   #   runs-on: ubuntu-22.04
