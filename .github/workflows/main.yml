@@ -4,6 +4,7 @@ on: [push]
 jobs:
   Clon-repo:
     runs-on: ubuntu-22.04
+    environment: test
     steps: 
       - run: echo "Start cloning repo...."
       
