@@ -17,7 +17,7 @@ jobs:
         run: npm run build
                 
       - name: Deploy to Server via SSH
-        uses: root/scp-action@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
