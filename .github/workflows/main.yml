@@ -1,0 +1,27 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is changed project 🚀
+on: [push]
+jobs:
+  Clon-repo:
+    runs-on: ubuntu-22.04
+    steps: 
+      - run: echo "Start clonning repo..."
+      - name: Checkout code
+        uses: actions/checkout@v2 
+      - run: echo "Succesful cloned repo"
+  Dependency-install:
+    needs: Clon-repo
+    runs-on: ubuntu-22.04
+    steps: 
+      - run: npm i
+  Build:
+    needs: Dependency-install
+    runs-on: ubuntu-22.04
+    steps: 
+      - run: npm build
+  Cp-dist:
+    needs: Build
+    runs-on: ubuntu-22.04
+    steps:
+      - run: rm -r ../var/www/dist 
+      - run: cp -r /dist ../var/www
