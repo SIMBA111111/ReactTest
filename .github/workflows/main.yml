@@ -10,16 +10,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2 
         
-      - name: Install dependencies
-        run: npm install
+      # - name: Install dependencies
+        # run: npm install
         
-      - name: Build
-        run: npm run build
+      # - name: Build
+        # run: npm run build
                 
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private.key
+          echo "start: ${{ secrets.SSH_PRIVATE_KEY }} :end" > ~/.ssh/private.key
           chmod 600 ~/.ssh/private.key
 
       - name: Check SSH key permissions
