@@ -27,10 +27,10 @@ function App() {
   return (
     <>
       <div>
-        {res1}
+        res1 -- {res1}
       </div>
       <div>
-        {res2}
+        res2 -- {res2}
       </div>
     </>
   )
