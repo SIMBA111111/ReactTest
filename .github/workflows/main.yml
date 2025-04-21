@@ -46,4 +46,5 @@ jobs:
               mkdir -p "../var/www/dist"
             fi
             cp -r dist/* ../var/www/dist
+            echo "Папка dist скопирована в nginx успешно"
           EOF
