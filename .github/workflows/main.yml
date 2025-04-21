@@ -35,8 +35,8 @@ jobs:
             pwd
             cd ReactTest/ || { echo "Папка ReactTest не найдена"; exit 1; }
             pwd
-            npm i
-            npm run build
+            /root/.nvm/versions/node/v20.19.0/bin/npm i
+            /root/.nvm/versions/node/v20.19.0/bin/npm run build
             if [ -d "../var/www/dist" ]; then
               echo "Папка dist существует, удаляю старые файлы..."
               rm -rf ../var/www/dist/*
