@@ -29,14 +29,14 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no root@89.169.1.160 << 'EOF'
-            pwd
-            cd /
-            pwd
-            cd ReactTest/ || { echo "Папка ReactTest не найдена"; exit 1; }
-            pwd
-            /root/.nvm/versions/node/v20.19.0/bin/npm i
-            /root/.nvm/versions/node/v20.19.0/bin/npm run build
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.SSH_SERVER_IP }} << 'EOF'
+            export PATH=$PATH:/root/.nvm/versions/node/v20.19.0/bin  # Обновляем PATH
+            echo $PATH
+            cd /ReactTest/ || { echo "Папка ReactTest не найдена"; exit 1; }
+            node -v  # Проверка версии Node
+            npm install
+            npm run build
+      
             if [ -d "../var/www/dist" ]; then
               echo "Папка dist существует, удаляю старые файлы..."
               rm -rf ../var/www/dist/*
