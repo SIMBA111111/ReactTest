@@ -34,6 +34,7 @@ jobs:
             echo $PATH
             cd /ReactTest/ || { echo "Папка ReactTest не найдена"; exit 1; }
             node -v  # Проверка версии Node
+            git pull
             npm install
             npm run build
       
